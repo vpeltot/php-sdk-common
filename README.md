@@ -54,6 +54,15 @@ Depending on the APIs you use, multiple identities are supported (only one per A
     $sdk->setIdentity([...], 'identityType1');
     $sdk->setIdentity([...], 'identityType2');
 
+By default, API calls are directed to 'prod' environment, but you can change to an other environment :
+
+    $sdk->setEnvironment('preprod');
+
+Depending on the APIs you use, multiple environments are supported (only one per APIs) :
+
+    $sdk->setEnvironment('preprod', 'api1');
+    $sdk->setEnvironment('prod'); // fallback
+
 Enjoy !
 
 FTVEN Build Team.

@@ -45,4 +45,44 @@ interface SdkInterface
      * @return $this
      */
     public function setHttpService(HttpServiceInterface $httpService);
+    /**
+     * @param mixed  $credentials
+     * @param string $type
+     *
+     * @return $this
+     */
+    public function setIdentity($credentials, $type = 'default');
+    /**
+     * @param string $type
+     *
+     * @return mixed
+     *
+     * @throws \RuntimeException
+     */
+    public function getIdentity($type = 'default');
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function hasIdentity($type = 'default');
+    /**
+     * @param string $env
+     * @param string $type
+     *
+     * @return $this
+     */
+    public function setEnvironment($env, $type = 'default');
+    /**
+     * @param string $type
+     *
+     * @return string
+     */
+    public function getEnvironment($type = 'default');
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function hasEnvironment($type = 'default');
 }

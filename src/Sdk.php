@@ -24,6 +24,10 @@ class Sdk implements SdkInterface
      */
     protected $identities = [];
     /**
+     * @var array
+     */
+    protected $environments = [];
+    /**
      * @var ApiInterface[]
      */
     protected $apis = [];
@@ -191,7 +195,7 @@ class Sdk implements SdkInterface
      *
      * @return $this
      */
-    public function setIdentity($credentials, $type = 'main')
+    public function setIdentity($credentials, $type = 'default')
     {
         $this->identities[$type] = $credentials;
     }
@@ -199,13 +203,19 @@ class Sdk implements SdkInterface
      * @param string $type
      *
      * @return mixed
-     *
-     * @throws \RuntimeException
      */
-    public function getIdentity($type = 'main')
+    public function getIdentity($type = 'default')
     {
         if (false === $this->hasIdentity($type)) {
-            throw new \RuntimeException(sprintf("Identity not set (type: %s)", $type), 404);
+            if ('default' !== $type) {
+                if (false === $this->hasIdentity('default')) {
+                    return null;
+                }
+
+                return $this->hasIdentity('default');
+            }
+
+            return null;
         }
 
         return $this->identities[$type];
@@ -215,8 +225,50 @@ class Sdk implements SdkInterface
      *
      * @return bool
      */
-    public function hasIdentity($type = 'main')
+    public function hasIdentity($type = 'default')
     {
         return true === isset($this->identities[$type]);
+    }
+    /**
+     * @param string $env
+     * @param string $type
+     *
+     * @return $this
+     */
+    public function setEnvironment($env, $type = 'default')
+    {
+        $this->environments[$type] = $env;
+
+        return $this;
+    }
+    /**
+     * @param string $type
+     *
+     * @return string
+     */
+    public function getEnvironment($type = 'default')
+    {
+        if (false === $this->hasEnvironment($type)) {
+            if ('default' !== $type) {
+                if (false === $this->hasEnvironment('default')) {
+                    return 'prod';
+                }
+
+                return $this->hasEnvironment('default');
+            }
+
+            return 'prod';
+        }
+
+        return $this->environments[$type];
+    }
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function hasEnvironment($type = 'default')
+    {
+        return true === isset($this->environments[$type]);
     }
 }
