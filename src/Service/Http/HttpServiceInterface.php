@@ -9,25 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace Ftven\Sdk;
+namespace Ftven\Sdk\Service\Http;
 
 /**
  * @author Olivier Hoareau <olivier@phppro.fr>
  */
-interface ApiInterface
+interface HttpServiceInterface
 {
     /**
-     * @return string
-     */
-    public function getName();
-    /**
-     * @param SdkInterface $sdk
+     * @param $url   $string
+     * @param string $method
+     * @param array  $headers
+     * @param null   $body
+     * @param array  $options
      *
-     * @return $this|void
+     * @return array
      */
-    public function setSdk(SdkInterface $sdk);
-    /**
-     * @return SdkInterface
-     */
-    public function getSdk();
+    public function request(
+        $url, $method = 'GET', $headers = [], $body = null, $options = []
+    );
 }
