@@ -20,15 +20,19 @@ function ftven_sdk($resetSingleton = false)
 }
 
 /**
- * @param string      $name
+ * @param string|null $name
  * @param string|null $method
  *
  * @return ApiInterface|mixed
  *
  * @throws \RuntimeException
  */
-function ftven_sdk_api($name, $method = null)
+function ftven_sdk_api($name = null, $method = null)
 {
+    if (null === $name) {
+        return ftven_sdk()->getAvailableApis();
+    }
+
     $args = func_get_args();
     $name = array_shift($args);
     $api  = ftven_sdk()->getApi($name);

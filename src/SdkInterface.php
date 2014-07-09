@@ -11,6 +11,8 @@
 
 namespace Ftven\Sdk;
 
+use Ftven\Sdk\Service\Http\HttpServiceInterface;
+
 /**
  * @author Olivier Hoareau <olivier@phppro.fr>
  */
@@ -32,4 +34,15 @@ interface SdkInterface
      * @throws \RuntimeException
      */
     public function getApi($name);
+
+    /**
+     * @return HttpServiceInterface
+     */
+    public function getHttpService();
+    /**
+     * @param HttpServiceInterface $httpService
+     *
+     * @return $this
+     */
+    public function setHttpService(HttpServiceInterface $httpService);
 }

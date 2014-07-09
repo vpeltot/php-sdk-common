@@ -14,7 +14,7 @@ namespace Ftven\Sdk;
 /**
  * @author Olivier Hoareau <olivier@phppro.fr>
  */
-class SdkFunctionsTest extends \PHPUnit_Framework_TestCase
+class FunctionsTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -40,7 +40,7 @@ class SdkFunctionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFunction__ftven_sdk_api()
     {
-        $apiMock = $this->getMock('Ftven\\Sdk\\ApiInterface', ['getName'], [], '', false);
+        $apiMock = $this->getMock('Ftven\\Sdk\\ApiInterface', ['getName', 'setSdk', 'getSdk'], [], '', false);
         $apiMock->expects($this->any())->method('getName')->will($this->returnValue('api-mock'));
         ftven_sdk()->addApi($apiMock);
         $this->assertEquals($apiMock, ftven_sdk_api('api-mock'));
@@ -48,9 +48,19 @@ class SdkFunctionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @group unit
      */
+    public function testFunction__ftven_sdk_api__with_no_args__returns_list_of_apis()
+    {
+        $apiMock = $this->getMock('Ftven\\Sdk\\ApiInterface', ['getName', 'setSdk', 'getSdk'], [], '', false);
+        $apiMock->expects($this->any())->method('getName')->will($this->returnValue('api-mock'));
+        ftven_sdk()->addApi($apiMock);
+        $this->assertEquals(['api-mock'], ftven_sdk_api());
+    }
+    /**
+     * @group unit
+     */
     public function testFunction__ftven_sdk_api__with_method_call()
     {
-        $apiMock = $this->getMock('Ftven\\Sdk\\ApiInterface', ['getName', 'getValue'], [], '', false);
+        $apiMock = $this->getMock('Ftven\\Sdk\\ApiInterface', ['getName', 'getValue', 'setSdk', 'getSdk'], [], '', false);
         $apiMock->expects($this->any())->method('getName')->will($this->returnValue('api-mock'));
         $apiMock->expects($this->any())->method('getValue')->will($this->returnValue('theValueHere'));
         ftven_sdk()->addApi($apiMock);
@@ -61,7 +71,7 @@ class SdkFunctionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testFunction__ftven_sdk_api__for_method_unknown__throw_exception()
     {
-        $apiMock = $this->getMock('Ftven\\Sdk\\ApiInterface', ['getName'], [], '', false);
+        $apiMock = $this->getMock('Ftven\\Sdk\\ApiInterface', ['getName', 'setSdk', 'getSdk'], [], '', false);
         $apiMock->expects($this->any())->method('getName')->will($this->returnValue('api-mock'));
         ftven_sdk()->addApi($apiMock);
         $this->setExpectedException('RuntimeException', "Method 'unknownMethod' does not exist in API 'api-mock'", 404);
