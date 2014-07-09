@@ -1,0 +1,22 @@
+### IDE
+
+/.idea/
+
+
+### Composer
+
+/vendor/
+/composer.phar
+/composer.lock
+
+
+### Tools
+
+/bin/phpunit
+/bin/jsonlint
+/bin/validate-json
+/bin/phpcs
+
+### QA
+
+/report/
