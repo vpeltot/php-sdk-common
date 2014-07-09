@@ -1,5 +1,5 @@
 {
-    "name": "ftven/php-sdk-common",
+    "name": "ftven/sdk-common",
     "description": "SDK COMMON Classes",
     "keywords": ["ftven", "sdk", "common"],
     "homepage": "https://github.com/francetv/php-sdk-common",
