@@ -12,6 +12,7 @@
 namespace Ftven\Sdk\Service\Http;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * @author Olivier Hoareau <olivier@phppro.fr>
@@ -69,7 +70,7 @@ class HttpService implements HttpServiceInterface
         $url, $method = 'GET', $headers = [], $body = null, $options = []
     )
     {
-        $request = $this->getClient()->createRequest($method, $url, $options);
+        $request = new Request($method, $url, $options);
 
         $response = $this->getClient()->send($request);
 
